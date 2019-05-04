@@ -187,6 +187,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2045809959445373623, guid: 2a84061016974c243b2258428a713c5e,
+        type: 3}
+      propertyPath: movementVector.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2045809959445373623, guid: 2a84061016974c243b2258428a713c5e,
+        type: 3}
+      propertyPath: obstacleCanMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2045809959445373623, guid: 2a84061016974c243b2258428a713c5e,
+        type: 3}
+      propertyPath: movementVector.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a84061016974c243b2258428a713c5e, type: 3}
 --- !u!4 &109918074 stripped
@@ -261,6 +276,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2045809959445373623, guid: 2a84061016974c243b2258428a713c5e,
+        type: 3}
+      propertyPath: obstacleCanMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2045809959445373623, guid: 2a84061016974c243b2258428a713c5e,
+        type: 3}
+      propertyPath: movementVector.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2045809959445373623, guid: 2a84061016974c243b2258428a713c5e,
+        type: 3}
+      propertyPath: period
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a84061016974c243b2258428a713c5e, type: 3}
@@ -584,6 +614,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2045809959445373623, guid: 2a84061016974c243b2258428a713c5e,
+        type: 3}
+      propertyPath: movementVector.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2045809959445373623, guid: 2a84061016974c243b2258428a713c5e,
+        type: 3}
+      propertyPath: obstacleCanMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2045809959445373623, guid: 2a84061016974c243b2258428a713c5e,
+        type: 3}
+      propertyPath: period
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a84061016974c243b2258428a713c5e, type: 3}
 --- !u!4 &958953195 stripped
@@ -765,7 +810,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthText: {fileID: 1187191244}
   timeText: {fileID: 1970907837}
-  time: 15
+  time: 30
   health: 100
   reduceHealthWhenEnemy: 30
   reduceHealthWhenObstacle: 20
@@ -1672,6 +1717,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2045809959445373623, guid: 2a84061016974c243b2258428a713c5e,
+        type: 3}
+      propertyPath: obstacleCanMove
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a84061016974c243b2258428a713c5e, type: 3}

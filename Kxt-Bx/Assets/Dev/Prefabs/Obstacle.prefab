@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2045809959445373623}
   m_Layer: 0
   m_Name: Obstacle
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,6 +124,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f60a50ba0768e4da017d4b1c6b8923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayBeforeDestroy: 1
   explosionPrefab: {fileID: 8167420488372607102, guid: 6a49e9002af957f44bb3351b892c7d6e,
     type: 3}
+  obstacleCanMove: 0
+  movementVector: {x: 0, y: 10, z: 0}
+  movementFactor: 0
+  period: 2

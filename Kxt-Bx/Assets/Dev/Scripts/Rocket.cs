@@ -5,39 +5,25 @@ public class Rocket : MonoBehaviour
 {
 
     Rigidbody rigidbody;
-    AudioSource audioSource;
-
-    [SerializeField] float rcsThrust = 250f;
+    GameManager gameManager;
+  
+    [SerializeField] float rotationThrust = 250f;
     [SerializeField] float mainThrust = 50f;
-
-    [SerializeField] float levelLoadDelay = 1f;
-
-    [SerializeField] AudioClip mainEngine;
-    [SerializeField] AudioClip success;
-    [SerializeField] AudioClip death;
-
-    [SerializeField] ParticleSystem mainEngineParticle;
-    [SerializeField] ParticleSystem successParticle;
-    [SerializeField] ParticleSystem deathParticle;
-
-    enum State { Alive, Dying, Transcending }
-    State state = State.Alive;
-
-    int currentLevelIndex;
+    private bool isFlying;
 
     // Use this for initialization
     void Start()
     {
-        currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+        gameManager = GameManager.gameManager;
         rigidbody = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
+        isFlying = false;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (state == State.Alive)
+        if (GameManager.gState == GameManager.gameState.playing)
         {
             RespondToThrustInput();
             Rotate();
@@ -47,7 +33,7 @@ public class Rocket : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (state != State.Alive)
+        if (GameManager.gState != GameManager.gameState.playing)
         {
             return;
         }
@@ -57,79 +43,51 @@ public class Rocket : MonoBehaviour
             case "Friendly":
                 break;
             case "Finish":
-                StartSuccessSequence();
+                gameManager.StartSuccessSequence();
                 break;
-            default:
-                StartDeathSequence();
+            case "Obstacle":
+                ReduceHealthForObstacle();
+                break;
+            case "Enemy":
+                Destroy(collision.gameObject);
+                ReduceHealthForEnemy();
                 break;
         }
     }
 
-    private void StartDeathSequence()
+    private void ReduceHealthForEnemy()
     {
-        state = State.Dying;
-        audioSource.Stop();
-        audioSource.PlayOneShot(death);
-        deathParticle.Play();
-        Invoke("LoadCurrentLevel", levelLoadDelay);
-    }
-
-    private void StartSuccessSequence()
-    {
-        state = State.Transcending;
-        audioSource.Stop();
-        audioSource.PlayOneShot(success);
-        successParticle.Play();
-        Invoke("LoadNextLevel", levelLoadDelay);
-    }
-
-    private void LoadCurrentLevel()
-    {
-        SceneManager.LoadScene(currentLevelIndex);
+        gameManager.reduceHealth(gameManager.getReduceEnemy());
     }
 
 
-
-    private void LoadNextLevel()
+    private void ReduceHealthForObstacle()
     {
-        if (currentLevelIndex == SceneManager.sceneCountInBuildSettings - 1)
-        {
-            currentLevelIndex = 0;
-            print(currentLevelIndex);
-            SceneManager.LoadScene(currentLevelIndex);
-        }
-        SceneManager.LoadScene(currentLevelIndex + 1);
+        gameManager.reduceHealth(gameManager.getReduceObstacle());
     }
-
 
 
     private void RespondToThrustInput()
     {
         if (Input.GetKey(KeyCode.Space))
         {
+            isFlying = true;
             ApplyThrust();
         }
         else
         {
-            audioSource.Stop();
-            mainEngineParticle.Stop();
-
+            isFlying = false;
         }
     }
 
     private void ApplyThrust()
     {
         rigidbody.AddRelativeForce(Vector3.up * mainThrust);
-        if (!audioSource.isPlaying)
-        {
-            audioSource.PlayOneShot(mainEngine);
-        }
-        mainEngineParticle.Play();
     }
 
     private void Rotate()
     {
-        float rotationThisFrame = rcsThrust * Time.deltaTime;
+        float rotationThisFrame = rotationThrust * Time.deltaTime;
 
         rigidbody.freezeRotation = true;
 
@@ -143,5 +101,11 @@ public class Rocket : MonoBehaviour
         }
 
         rigidbody.freezeRotation = false;
+    }
+
+
+    public bool GetIsFlying()
+    {
+        return isFlying;
     }
 }
