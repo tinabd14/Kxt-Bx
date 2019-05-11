@@ -5,16 +5,17 @@ public class Rocket : MonoBehaviour
 {
 
     Rigidbody rigidbody;
-    GameManager gameManager;
+    [SerializeField] GameManager gameManager;
   
     [SerializeField] float rotationThrust = 250f;
     [SerializeField] float mainThrust = 50f;
-    private bool isFlying;
+    private  bool isFlying;
+    Vector3 gravity = 10 * Vector3.down;
+
 
     // Use this for initialization
     void Start()
     {
-        gameManager = GameManager.gameManager;
         rigidbody = GetComponent<Rigidbody>();
         isFlying = false;
     }
@@ -22,38 +23,14 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (GameManager.gState == GameManager.gameState.playing)
         {
             RespondToThrustInput();
             Rotate();
+            rigidbody.AddForce(gravity, ForceMode.Acceleration);
         }
     }
 
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (GameManager.gState != GameManager.gameState.playing)
-        {
-            return;
-        }
-
-        switch (collision.gameObject.tag)
-        {
-            case "Friendly":
-                break;
-            case "Finish":
-                gameManager.StartSuccessSequence();
-                break;
-            case "Obstacle":
-                ReduceHealthForObstacle();
-                break;
-            case "Enemy":
-                Destroy(collision.gameObject);
-                ReduceHealthForEnemy();
-                break;
-        }
-    }
 
     private void ReduceHealthForEnemy()
     {
@@ -108,4 +85,41 @@ public class Rocket : MonoBehaviour
     {
         return isFlying;
     }
+
+
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (GameManager.gState != GameManager.gameState.playing)
+        {
+            return;
+        }
+        else
+        {
+            Collider myCollider = collision.contacts[0].thisCollider;
+
+            if (collision.gameObject.tag == "Friendly")
+            {
+                return;
+            }
+            else if (collision.gameObject.tag == "Finish")
+            {
+                if (myCollider.gameObject.tag == "Leg")
+                {
+                    gameManager.StartSuccessSequence();
+                }
+                
+            }
+            else if (collision.gameObject.tag == "Obstacle")
+            {
+                ReduceHealthForObstacle();
+            }
+            else if (collision.gameObject.tag == "Enemy")
+            {
+                Destroy(collision.gameObject);
+                ReduceHealthForEnemy();
+            }
+        }
+    }
+
 }

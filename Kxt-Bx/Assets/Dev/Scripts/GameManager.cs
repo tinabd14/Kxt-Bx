@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager gameManager;
-    [SerializeField] private TextMeshProUGUI healthText;
-    [SerializeField] private TextMeshProUGUI timeText;
+    [SerializeField] private Text LevelText;
+    [SerializeField] private Text healthText;
+    [SerializeField] private Text timeText;
 
     public enum gameState {playing, end, success};
     public static gameState gState;
@@ -26,13 +26,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = gameObject.GetComponent<GameManager>();
         gState = gameState.playing;
 
         failed = false;
         succeeded = false;
 
         currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+        LevelText.text = SceneManager.GetActiveScene().name;
     }
 
     // Update is called once per frame
@@ -75,7 +75,10 @@ public class GameManager : MonoBehaviour
             currentLevelIndex = 0;
             SceneManager.LoadScene(currentLevelIndex);
         }
-        SceneManager.LoadScene(currentLevelIndex + 1);
+        else
+        {
+            SceneManager.LoadScene(currentLevelIndex + 1);
+        }
     }
 
 
@@ -127,12 +130,12 @@ public class GameManager : MonoBehaviour
 
     public void reduceHealth(int reduce)
     {
-        health = health - reduce;
+        health -= reduce;
     }
 
     public void increaseHealth(int increase)
     {
-        health = health + increase;
+        health += increase;
     }
 
 

@@ -8,6 +8,7 @@ TagManager:
   - Friendly
   - Obstacle
   - Enemy
+  - Leg
   layers:
   - Default
   - TransparentFX

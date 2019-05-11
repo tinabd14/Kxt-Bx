@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Obstacle : MonoBehaviour
 {
-    public GameObject explosionPrefab;
+    [SerializeField] GameObject explosionPrefab;
 
     [SerializeField] bool obstacleCanMove = false;
 
@@ -32,10 +32,10 @@ public class Obstacle : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            Destroy(this.gameObject, 0);
             if (explosionPrefab != null)
             {
                 Instantiate(explosionPrefab, transform.position, transform.rotation);
+                Destroy(gameObject);
             }
         }
     }

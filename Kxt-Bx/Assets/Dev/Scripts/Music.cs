@@ -29,6 +29,7 @@ public class Music : MonoBehaviour
     {
         if(GameManager.gState == GameManager.gameState.playing)
         {
+            
             if(rocket.GetIsFlying())
             {
                 if (!audioSource.isPlaying)
@@ -40,6 +41,7 @@ public class Music : MonoBehaviour
             {
                 audioSource.Stop();
             }
+            
         }
         else if(GameManager.gState == GameManager.gameState.success)
         {
