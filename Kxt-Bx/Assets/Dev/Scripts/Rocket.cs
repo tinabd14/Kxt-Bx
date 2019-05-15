@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.CrossPlatformInput;
+
 
 public class Rocket : MonoBehaviour
 {
@@ -7,7 +9,7 @@ public class Rocket : MonoBehaviour
     Rigidbody rigidbody;
     [SerializeField] GameManager gameManager;
   
-    [SerializeField] float rotationThrust = 250f;
+    [SerializeField] float rotationThrust = 300f;
     [SerializeField] float mainThrust = 50f;
     private  bool isFlying;
     Vector3 gravity = 10 * Vector3.down;
@@ -46,10 +48,11 @@ public class Rocket : MonoBehaviour
 
     private void RespondToThrustInput()
     {
-        if (Input.GetKey(KeyCode.Space))
+        float x = CrossPlatformInputManager.GetAxis("Jump");
+        if (x != 0)
         {
             isFlying = true;
-            ApplyThrust();
+            ApplyThrust(x);
         }
         else
         {
@@ -57,9 +60,9 @@ public class Rocket : MonoBehaviour
         }
     }
 
-    private void ApplyThrust()
+    private void ApplyThrust(float x)
     {
-        rigidbody.AddRelativeForce(Vector3.up * mainThrust);
+        rigidbody.AddRelativeForce(Vector3.up * mainThrust * x);
     }
 
     private void Rotate()
@@ -68,14 +71,18 @@ public class Rocket : MonoBehaviour
 
         rigidbody.freezeRotation = true;
 
-        if (Input.GetKey(KeyCode.A))
+        float x = CrossPlatformInputManager.GetAxis("Horizontal") * rotationThisFrame * -1;
+        transform.Rotate(Vector3.forward * x);
+
+
+        /*if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(Vector3.forward * rotationThisFrame);
+            transform.Rotate(Vector3.forward * x);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(-Vector3.forward * rotationThisFrame);
-        }
+            transform.Rotate(-Vector3.forward * x);
+        }*/
 
         rigidbody.freezeRotation = false;
     }
