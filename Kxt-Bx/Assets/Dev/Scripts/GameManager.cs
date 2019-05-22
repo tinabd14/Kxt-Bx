@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text healthText;
     [SerializeField] private Text timeText;
 
-    public enum gameState {playing, end, success};
+    public enum gameState {stop, playing, end, success};
     public static gameState gState;
 
     [SerializeField] private float time = 15f;
@@ -22,34 +23,87 @@ public class GameManager : MonoBehaviour
     private bool succeeded;
     int currentLevelIndex;
 
-
+    public static bool isPaused;
+    public static float start;
+    public static bool instructionsFinished;
     // Start is called before the first frame update
     void Start()
     {
-        gState = gameState.playing;
-
+        gState = gameState.stop;
         failed = false;
         succeeded = false;
 
         currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
         LevelText.text = SceneManager.GetActiveScene().name;
+
+        isPaused = false;
+        start = 0;
+
+        if (SceneManager.GetActiveScene().name == "Instruction 1" || SceneManager.GetActiveScene().name == "Instruction 2")
+        {
+            instructionsFinished = false;
+        }
+        else
+        {
+            instructionsFinished = true;
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(failed)
+        if (CrossPlatformInputManager.GetAxis("Start") != 0)
         {
-            StartEndSequence();
+            start = start + 0.0001f;
         }
-        UpdateHealth();
-        UpdateTime();
+        if (start == 0.0001f)
+        {
+            gState = gameState.playing;
+        }
+
+        if(gState == gameState.playing)
+        {
+            if (CrossPlatformInputManager.GetButtonDown("Pause"))
+            {
+                isPaused = !isPaused;
+            }
+            if (isPaused)
+            {
+                Time.timeScale = 0;
+            }
+            else if (!isPaused)
+            {
+                Time.timeScale = 1;
+                if (failed)
+                {
+                    StartEndSequence();
+                }
+                UpdateHealth();
+                UpdateTime();
+            }
+        }
+        
+    }
+
+    private void PlayGame()
+    {
+        if(!isPaused)
+        {
+            if (failed)
+            {
+                StartEndSequence();
+            }
+            UpdateHealth();
+            UpdateTime();
+        }
     }
 
 
     public void StartSuccessSequence()
     {
         succeeded = true;
+        start = 0;
         gState = gameState.success;
         Invoke("LoadNextLevel", 1);
     }
@@ -149,4 +203,5 @@ public class GameManager : MonoBehaviour
     {
         return reduceHealthWhenObstacle;
     }
+
 }

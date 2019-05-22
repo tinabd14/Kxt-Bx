@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.3835905, g: 0.0450062, b: 0.0030045598, a: 1}
+  m_IndirectSpecularColor: {r: 0.38369322, g: 0.046160057, b: 0.003863183, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -231,7 +231,7 @@ MonoBehaviour:
   LevelText: {fileID: 1202021387}
   healthText: {fileID: 148543564}
   timeText: {fileID: 1420678580}
-  time: 20
+  time: 25
   health: 100
   reduceHealthWhenEnemy: 30
   reduceHealthWhenObstacle: 20
@@ -554,7 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f327224384ec7204f836478b483b5a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrustAudio: {fileID: 8300000, guid: f1fa78c409ee9704598f300b09f6117d, type: 3}
+  thrustAudio: {fileID: 8300000, guid: 5699dddcce16c4543b95951c4ce0e092, type: 3}
   successAudio: {fileID: 8300000, guid: 205554defb834b447a5e792e033b5afd, type: 3}
   deathAudio: {fileID: 8300000, guid: e931f7a6c5e4739458bdc5bca0808328, type: 3}
   rocket: {fileID: 1255368663}
@@ -888,7 +888,7 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
-  m_FOVAxisMode: 0
+  m_FOVAxisMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
   m_FocalLength: 50
@@ -900,7 +900,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 67.67275
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2084,6 +2084,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7378261173761534865, guid: 17d895f4720ccc5478a8b791a324492e,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378261173761534865, guid: 17d895f4720ccc5478a8b791a324492e,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378261173761534865, guid: 17d895f4720ccc5478a8b791a324492e,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378261173761534865, guid: 17d895f4720ccc5478a8b791a324492e,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378261173761534865, guid: 17d895f4720ccc5478a8b791a324492e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7378261174094683707, guid: 17d895f4720ccc5478a8b791a324492e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2160,31 +2185,6 @@ PrefabInstance:
       value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7378261173761534864, guid: 17d895f4720ccc5478a8b791a324492e,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7378261173761534865, guid: 17d895f4720ccc5478a8b791a324492e,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7378261173761534865, guid: 17d895f4720ccc5478a8b791a324492e,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7378261173761534865, guid: 17d895f4720ccc5478a8b791a324492e,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7378261173761534865, guid: 17d895f4720ccc5478a8b791a324492e,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7378261173761534865, guid: 17d895f4720ccc5478a8b791a324492e,
         type: 3}
       propertyPath: m_Enabled
       value: 1

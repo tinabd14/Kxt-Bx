@@ -46,7 +46,7 @@ MonoBehaviour:
   LevelText: {fileID: 0}
   healthText: {fileID: 0}
   timeText: {fileID: 0}
-  time: 20
+  time: 50
   health: 100
   reduceHealthWhenEnemy: 30
   reduceHealthWhenObstacle: 20
